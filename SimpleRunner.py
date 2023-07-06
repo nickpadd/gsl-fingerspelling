@@ -17,11 +17,6 @@ from torch.nn import (
 )
 import torch.nn.functional as F
 from torch.optim import Adam
-<<<<<<< HEAD
-import pandas as pd
-import numpy as np
-=======
->>>>>>> refs/remotes/origin/Nikolas_branch
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score
@@ -31,15 +26,6 @@ import glob
 
 
 def main():
-<<<<<<< HEAD
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = Net()
-    model.load_state_dict(torch.load('Saved_models/4_CNN_1-16-32-6_lr-0.001_batch-1024_n_epochs-100_dropout-0/CNN_1-16-32-6_lr-0.001_batch-1024_n_epochs-100_dropout-0.pth'))
-    model.eval()
-    cap = cv2.VideoCapture(0)
-    _, frame = cap.read()
-    h, w, c = frame.shape
-=======
     """ 1. initialize parameters and define which letters should recognize the model
         2. load cnn model, which is located in directory saved_models
         3. start video capturing using cv2 library
@@ -51,17 +37,13 @@ def main():
     """
 
     # initialize parameters
->>>>>>> refs/remotes/origin/Nikolas_branch
     analysisframe = ''
     letter_rgb_l = []
     letter_gray_l = []
     pixels_l = []
     le = preprocessing.LabelEncoder()
-<<<<<<< HEAD
-    letters=['Gamma', 'Beta', 'Eta', 'Phi', 'Theta', 'Zeta']
-=======
+
     letters = ['Gamma', 'Beta', 'Eta', 'Phi', 'Theta', 'Zeta']
->>>>>>> refs/remotes/origin/Nikolas_branch
     le.fit(letters)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -94,8 +76,7 @@ def main():
             device = next(model.parameters()).device
             with torch.no_grad():
                 output = model(analysisframe.to(device))
-<<<<<<< HEAD
-                
+  
             softmax = F.softmax(output, dim=1)
             top_two_values, top_two_indices = torch.topk(softmax, k=2, dim=1)
 
@@ -114,13 +95,6 @@ def main():
                     indentation = ""
                     
                 print(f"{indentation} {rank+1}.Prediction: {le.inverse_transform([index])}, Probability: {probability:.2f}")
-=======
-            softmax = torch.exp(output)
-            predictions = torch.argmax(softmax, -1)
-            letter = le.inverse_transform([predictions.item()])
-            print(letter)
->>>>>>> refs/remotes/origin/Nikolas_branch
-
             
 
         framergb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)

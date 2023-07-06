@@ -8,28 +8,17 @@ import csv
 from torchvision import transforms
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
 import torch
-import mediapipe as mp
 from keras.models import load_model
 import numpy as np
 import time
 import pandas as pd
-<<<<<<< HEAD
 import torch.nn.functional as F
-import torch
-=======
->>>>>>> refs/remotes/origin/Nikolas_branch
 from torch.autograd import Variable
 from torch.nn import (
     Linear, ReLU, CrossEntropyLoss, Sequential, Conv2d, MaxPool2d, Module, Softmax,
     BatchNorm2d, Dropout
 )
 from torch.optim import Adam
-<<<<<<< HEAD
-import pandas as pd
-import numpy as np
-=======
-from MyCNN import Net
->>>>>>> refs/remotes/origin/Nikolas_branch
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, f1_score
@@ -38,14 +27,6 @@ import glob
 
 
 def main():
-<<<<<<< HEAD
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = torch.load('vgg16-transfer-v4o.pth', map_location=torch.device('cpu'))
-    model.eval()
-    cap = cv2.VideoCapture(0)
-    _, frame = cap.read()
-    h, w, c = frame.shape
-=======
     """ 1. initialize parameters and define which letters should recognize the model
         2. load vgg16 model, which is located in current directory
         3. start video capturing using cv2 library
@@ -57,26 +38,21 @@ def main():
     """
 
     # initialize parameters
->>>>>>> refs/remotes/origin/Nikolas_branch
     analysisframe = ''
     letter_rgb_l = []
     letter_gray_l = []
     pixels_l = []
     le = preprocessing.LabelEncoder()
-<<<<<<< HEAD
+
     letters=['Gamma', 'Beta', 'Eta', 'Phi', 'Theta', 'Zeta']
-=======
-    letters = ['Gamma', 'Beta', 'Eta', 'Phi', 'Theta', 'Zeta']
->>>>>>> refs/remotes/origin/Nikolas_branch
     le.fit(letters)
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model = torch.load('vgg16-transfer-final.pth')
+    model = torch.load('vgg16-transfer-final.pth', map_location=torch.device('cpu'))
     model.eval()
 
     cap = cv2.VideoCapture(0)
     _, frame = cap.read()
-    # h, w, c = frame.shape
 
     while True:
         _, frame = cap.read()
@@ -102,7 +78,6 @@ def main():
             device = next(model.parameters()).device
             with torch.no_grad():
                 output = model(analysisframe.to(device))
-<<<<<<< HEAD
 
             softmax = F.softmax(output, dim=1)
             top_two_values, top_two_indices = torch.topk(softmax, k=2, dim=1)
@@ -122,12 +97,6 @@ def main():
                     indentation = ""
                     
                 print(f"{indentation} {rank+1}.Prediction: {le.inverse_transform([index])}, Probability: {probability:.2f}")
-=======
-            softmax = torch.exp(output)
-            predictions = torch.argmax(softmax, -1)
-            letter = le.inverse_transform([predictions.item()])
-            print(letter)
->>>>>>> refs/remotes/origin/Nikolas_branch
 
         framergb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         cv2.imshow("Frame", frame)
