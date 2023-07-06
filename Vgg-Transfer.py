@@ -339,15 +339,27 @@ def get_pretrained_model(model_name, n_classes):
     if model_name == 'vgg16':
         model = models.vgg16(weights=VGG16_Weights.IMAGENET1K_V1)
 
-        # Freeze early layers
-        for param in model.parameters():
-            param.requires_grad = False
+        count = 0
+        for i in model.classifier:
+            for param in i.parameters():
+                if count in (1,3):
+                  param.requires_grad = True
+            count += 1
+
         n_inputs = model.classifier[6].in_features
+        config_model.update({'model': model_name, 'requires_grad(1-6)': True})
 
         # Add on classifier
         model.classifier[6] = nn.Sequential(
             nn.Linear(n_inputs, 256), nn.ReLU(), nn.Dropout(0.2),
             nn.Linear(256, n_classes), nn.LogSoftmax(dim=1))
+        config_model.update({'model param_1': 'relu', 'model param_1': 'LogSoftmax dim=1', 'dropout': 0.2, 'classes': n_classes})
+
+        count = 0
+        for i in model.classifier:
+            for param in i.parameters():
+                  print(i, param.requires_grad)
+            count += 1
 
     return model
 
