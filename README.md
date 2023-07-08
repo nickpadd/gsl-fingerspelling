@@ -19,12 +19,7 @@ Below we describe the conditions of each session per signer:
 - night S2 csv files refer to photos taken at 9pm on yellow backround under lighting
 
 ## Data/pixels (user_2)
-- morning S1 csv files refer to photos taken at 11am, on white rib backround
-- morning S2 csv files refer to photos taken at 9am, on black dark backround
-- evening S2 csv files refer to photos taken at 2pm, on light blue background
-- evening S2 csv files refer to photos taken at 5pm, on natural light (outdoor)
-- night S1 csv files refer to photos taken at 1am on light blue backround under lighting
-- night S2 csv files refer to photos taken at 9pm on yellow backround under lighting
+
 
 ### In terms of training process, the dataset has been splitted in 3 parts, train (70%) / test (10%) / validation (20%)
 Each part contains unique sessions, in order to avoid overfitting during training process.
