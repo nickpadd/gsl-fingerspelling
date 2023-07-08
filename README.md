@@ -27,7 +27,7 @@ Below we describe the conditions of each session per signer:
 - night S2 csv files refer to photos taken at 9pm on yellow backround under lighting
 
 ### In terms of training process, the dataset has been splitted in 3 parts, train (70%) / test (10%) / validation (20%)
-Each part contains sessions with unique sessions, in order to avoid overfitting during training process.
+Each part contains unique sessions, in order to avoid overfitting during training process.
 
 
 
@@ -41,7 +41,7 @@ A CNN with 3 layers (1->16->32) has been implemented. Each convolutional layer c
 - Dropout(d)
 - MaxPool2d(kernel=2, stride=2)
 
-**Final CNN model ran with the fllowing hyperparameters:**
+**Final CNN model ran with the fllowing hyperparameters:**  
 Lr = 0.001  
 batch_size = 1024  
 n_epochs = 100  
@@ -53,7 +53,30 @@ No L2-Regularization
 ## VGG Model
 We followed the method of Transfer Learning. Initially we freezed all layers and replaced the final decision layer (fc8) with one corresponding to 6 class output. However, we noticed that best results come with unfreezing 3 classification layers.
 
+**Final VGG model ran with the fllowing hyperparameters:**
+
+Lr = 0.001  
+batch_size = 64  
+n_epochs = 100  
+Patience = 20  
+Dropout = 0.2  
 
 
+## How to execute CNN:
+
+- install requirements_cnn.txt
+- run: python3 MyCNN_batch.py
+  ** script loads csv files from Final_Dataset_CSV folder
+- output: plots, configuration file and final model will be saved in folder Saved_models
+
+  
+## How to execute VGG:
+
+- install requirements_vgg.txt
+- run: python3 VGG-Transfer.py  
+  ** script loads rgb frames from drive
+- output: plots, configuration file and final model will be saved in drive
+
+drive link: https://drive.google.com/drive/folders/1xK0gFjICOMl83dOvY1jLtAkxo69UiWmF?usp=drive_link
 
 
