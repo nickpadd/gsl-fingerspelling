@@ -35,7 +35,12 @@ letters=['Gamma', 'Beta', 'Eta', 'Phi', 'Theta', 'Zeta']
 le = preprocessing.LabelEncoder()
 le.fit(letters)
 config_model = {}
-directory = os.path.expanduser('~/Documents/MSc/DeepLearning/Saved_models/' + folder_name)
+
+cur_dir = os.getcwd()
+directory = os.path.join(cur_dir + '/Saved_models/' + folder_name)
+
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
 class Net(Module):   
     def __init__(self):
@@ -77,10 +82,10 @@ def gather_csv():
                 return string
         return None  
 
-    dir_path1 = "Nikolas_Train"
-    dir_path2 = "Sofia_Train"
-    dir_val_path1 = "Nikolas_Val"
-    dir_val_path2 = "Sofia_Val"
+    dir_path1 = "Final_Dataset_CSV/Nikolas_Train"
+    dir_path2 = "Final_Dataset_CSV/Sofia_Train"
+    dir_val_path1 = "Final_Dataset_CSV/Nikolas_Val"
+    dir_val_path2 = "Final_Dataset_CSV/Sofia_Val"
     
     # csv files in the path
     files = glob.glob(dir_path1 + "/*.csv")
